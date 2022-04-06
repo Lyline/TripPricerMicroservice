@@ -10,12 +10,16 @@ import java.util.UUID;
 @Service
 public class TripPricerService {
 
-  private tripPricer.TripPricer tripPricer= new TripPricer();
+  private final tripPricer.TripPricer tripPricer;
+
+  public TripPricerService(TripPricer tripPricer) {
+    this.tripPricer = tripPricer;
+  }
 
   public List<Provider> getPrice(String apiKey, UUID attractionId, int adults, int children,
                                  int nightsStay, int rewardsPoints){
     List<Provider>providers= new ArrayList<>();
-    List<tripPricer.Provider> tripPricerProviders=tripPricer.getPrice(apiKey, attractionId, adults, children,
+    List<tripPricer.Provider> tripPricerProviders= tripPricer.getPrice(apiKey, attractionId, adults, children,
         nightsStay,
         rewardsPoints);
 
@@ -25,9 +29,5 @@ public class TripPricerService {
     }
 
     return providers;
-  }
-
-  public String getProviderName(String apiKey, int adults){
-    return tripPricer.getProviderName(apiKey,adults);
   }
 }
